@@ -32,6 +32,7 @@ error_reporting(0);
             </div>
         </form>
         <?php
+        session_start();
         include "particals/_dbConn.php";
         $sql = "SELECT * FROM `salontb`";
         $run = mysqli_query($conn, $sql);
@@ -40,12 +41,26 @@ error_reporting(0);
             $pass = $row['pass'];
             if ($name == $_POST['name']) {
                 if ($pass == $_POST['pass']) {
+                    $_SESSION['name'] =  $row['name'];
+                    $_SESSION['pass'] =  $row['pass'];
                     header("Location: welcome.php");
-                } else {
-                    echo 'Error';
+                }
+                else {?>
+                        <script>
+                            alert("Wrong Password");
+                        </script>
+                    <?php
                 }
             }
-        }
+                else {?>
+                        <script>
+                            alert("Wrong Username");
+
+                        </script>
+                    <?php
+                }
+            }
+        
 
         ?>
     </div>
